@@ -1,0 +1,74 @@
+.float-left {
+    margin-left: 0;
+}
+
+.float-right {
+    margin-right: 0;
+}
+
+.position-absolute-choice1 {
+    position: absolute;
+    top: 15vw;
+    right: 0;
+}
+
+.fa-rotate-270-flip-horizontal  {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3, mirror=1)";
+    -webkit-transform: rotate(270deg) scale(-1, 1);
+    -ms-transform: rotate(270deg) scale(-1, 1);
+    transform: rotate(270deg) scale(-1, 1);
+}
+
+/* Choice1 animation */
+
+.position-absolute-choice1 {
+	position: absolute;
+	right: 10vw;
+}
+
+@keyframes moveRight {
+  
+  to {
+   right: 0;
+  }
+
+}
+
+.animation-choice1 {
+  animation-name: moveRight;
+  animation-duration: 0.25s; 
+  animation-timing-function: ease-out; 
+  animation-delay: 0.75s;
+  animation-direction: normal; 
+}
+
+.choice1-end {
+  right: 0;
+}
+
+/* Choice2 animation */
+
+.position-absolute-choice2 {
+	position: absolute;
+	left: 10vw;
+}
+
+@keyframes moveLeft {
+  
+  to {
+   left: 0;
+  }
+
+}
+
+.animation-choice2 {
+  animation-name: moveLeft;
+  animation-duration: 0.25s; 
+  animation-timing-function: ease-out; 
+  animation-delay: 0.75s;
+  animation-direction: normal; 
+}
+
+.choice2-end {
+  left: 0;
+}
