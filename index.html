@@ -1,103 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ROCK-PAPER-SCISSORS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <script src="assets/javascript/app.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>RPS Multiplayer</title>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<!-- Reset CSS -->
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- Firebase Reference -->
+	<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+	<!-- Media Queries -->
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
 </head>
 <body>
-    <!-- header -->
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">ROCK-PAPER-SCISSORS GAME</h1>
-          <h3 class="lead"><i class="far fa-hand-rock"></i><i class="far fa-hand-paper"></i><i class="far fa-hand-scissors"></i><i class="far fa-hand-rock"></i><i class="far fa-hand-paper"></i><i class="far fa-hand-scissors"></i><i class="far fa-hand-rock"></i><i class="far fa-hand-paper"></i><i class="far fa-hand-scissors"></i></h3>
-        </div>
-    </div>
-    <!-- player name -->
-    <div class="row justify-content-md-center">
-        <form>
-            <div class="form-row align-items-center name-box">
-                <div class="col">
-                    <label class="sr-only" for="inlineFormInputName">Name</label>
-                    <input type="text" class="form-control" id="inlineFormInputName" placeholder="Enter Your Name...">
-                </div>
-                <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-primary name-add">Start</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <!-- hidden msg -->
-    <div class="hidden-msg mb-3"></div>
-  
-    <!-- player's box -->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <!-- player 1 -->
-                <div class="card text-white bg-info mb-3 text-center" style="max-width: 18rem;">
-                    <div class="card-header player-one-name"><i class="fas fa-male"></i><span class="playername"> Player 1</span></div>
-                    <div class="card-body text-white waiting">
-                        <h5 class="card-title">Waiting for player 1</h5>
-                        <p class="card-text"><i class="fa fa-spinner fa-spin fa-one-large fa-fw"></i></p>
-                        <div class="player-one-choice choices1"></div>
-                    </div>
-                        <div class="card-footer score result-one"></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <!-- show result -->
-                <div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <p class="card-text">
-                            <div class="show-result">
-                                <p><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i></p>
-                                <p><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i></p>
-                                <p><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i><i class="fas fa-gamepad"></i></p>
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <!--  player 2 -->
-                <div class="card text-white bg-info mb-3 text-center" style="max-width: 18rem;">
-                        <div class="card-header player-two-name"><i class="fas fa-male"></i><span class="playername"> Player 2</span></div>
-                        <div class="card-body text-white waiting">
-                            <h5 class="card-title">Waiting for player 2</h5>
-                            <p class="card-text"><i class="fa fa-spinner fa-spin fa-one-large fa-fw"></i></p>
-                            <div class="player-two-choice choices2"></div>
-                        </div>
-                            <div class="card-footer score result-two"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- messages -->
-    <div class="row chat-row mt-5" style="margin: 0 auto">
-            <div class="col-md-12 col-sm-4">
-                <div class="box box-chat">
-                    <div class="messages"></div>
-                </div>
-                <form class="chat-form">
-                    <div class="input-group" style="width:1200px">
-                        <input id="message" placeholder="Type a message..." class="form-control" type="text">
-                    <span class="input-group-btn">
-                        <button class="btn btn-success" type="submit" id="submit-chat">Send</button>
-                    </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-  
+	<div class="wrapper">
+		<img src="assets/images/header.png">
+		<div class="greeting">
+			<form id="name-form">
+				<input type="text" id="name-input" placeholder="Name">
+				<input id="addName" type="submit" value="Start">
+			</form>
+		</div>
+		<div class="holder-box">
+			<div class="box player1">
+				<div class="waiting">
+					<h1>Waiting for player 1</h1>
+					<i class="fa fa-spinner fa-spin fa-one-large fa-fw"></i>
+				</div>
+				<div class="score score1"></div>
+				<div class="choices1"></div>
+			</div>
+			<div class="results"></div>
+			<div class="box player2">
+				<div class="waiting">
+					<h1>Waiting for player 2</h1>
+					<i class="fa fa-spinner fa-spin fa-one-large fa-fw"></i>
+				</div>
+				<div class="score score2"></div>
+				<div class="choices2"></div>
+			</div>
+		</div>
+		<div class="holder-messages">
+			<div id="messages"></div>
+			<form id="message-form">
+				<input type="text" id="message-input" placeholder="Message">
+				<input id="addMessage" type="submit" value="Send">
+			</form>
+		</div>
+	</div>
+	<!-- Custom JavaScript -->
+	<script src="assets/javascript/app.js"></script>
 </body>
 </html>
