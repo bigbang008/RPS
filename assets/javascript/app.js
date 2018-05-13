@@ -12,16 +12,11 @@ $(document).on('ready', function() {
 	var userRef;
 	var wins1, wins2, losses1, losses2;
 	
-	var choices = ['rock','paper','scissors'];
+	var choices = ['rock','paper','scissors', 'lizard', 'spock'];
 	
 	// Remove turn and chat when either player disconnects
 	turnRef.onDisconnect().remove();
 	chatRef.onDisconnect().remove();
-
-	// Deal with android orientation change event
-	$(window).bind( 'orientationchange', function(e){
-		
-	});
 
 	// Game Object
 	var game = {
@@ -73,9 +68,9 @@ $(document).on('ready', function() {
 				// Display beginning message
 				var waiting = $('.player' + key + ' > .waiting');
 				waiting.empty();
-				var $h1 = $('<h1>').text('Waiting for player ' + key);
-				var $i = $('<i>').addClass('fa fa-spinner fa-spin fa-one-large fa-fw')
-				waiting.append($h1).append($i);
+				var waitingtext = $('<h1>').text('Waiting for player ' + key);
+				var pic = $('<i>').addClass('fa fa-spinner fa-spin fa-one-large fa-fw')
+				waiting.append(waitingtext).append(pic);
 				// Empty score
 				$('.score' + key).text('');
 				// Empty divs
@@ -184,18 +179,21 @@ $(document).on('ready', function() {
 				$('h4').text('');
 			}
 		},
+
 		showChoice: function() {
 			for (i in choices) {
 				var $i = $('<i>');
 				$i.addClass('fa fa-hand-' + choices[i] + '-o fa-three-small');
 				$i.attr('data-choice', choices[i]);
 				game.rotateChoice(player, $i, choices[i]);
+	
 				$('.choices' + player).append($i);
 			}
 			// Listen for choice
 			$(document).one('mousedown','i', game.setChoice);
 		},
 		setChoice: function() {
+		
 			// Send selection to database
 			var selection = $(this).attr('data-choice');
 			userRef.update({
@@ -288,18 +286,50 @@ $(document).on('ready', function() {
 					game.winner(2);
 				} else if (choice2 == 'scissors') {
 					game.winner(1);
+				} else if (choice2 == 'lizard') {
+					game.winner(1);
+				} else if (choice2 == 'spock') {
+					game.winner(2);
 				}
 			} else if (choice1 == 'paper') {
 				if (choice2 == 'rock') {
 					game.winner(1);
 				} else if (choice2 == 'scissors') {
 					game.winner(2);
+				} else if (choice2 == 'lizard') {
+					game.winner(2);
+				} else if (choice2 == 'spock') {
+					game.winner(1);
 				}
 			} else if (choice1 == 'scissors') {
 				if (choice2 == 'rock') {
 					game.winner(2);
 				} else if (choice2 == 'paper') {
 					game.winner(1);
+				} else if (choice2 == 'lizard') {
+					game.winner(1);
+				} else if (choice2 == 'spock') {
+					game.winner(2);
+				}
+			} else if (choice1 == 'lizard') {
+				if (choice2 == 'rock') {
+					game.winner(2);
+				} else if (choice2 == 'paper') {
+					game.winner(1);
+				} else if (choice2 == 'scissors') {
+					game.winner(2);
+				} else if (choice2 == 'spock') {
+					game.winner(1);
+				}
+			} else if (choice1 == 'spock') {
+				if (choice2 == 'rock') {
+					game.winner(1);
+				} else if (choice2 == 'paper') {
+					game.winner(2);
+				} else if (choice2 == 'scissors') {
+					game.winner(1);
+				} else if (choice2 == 'lizard') {
+					game.winner(2);
 				}
 			}
 		},
